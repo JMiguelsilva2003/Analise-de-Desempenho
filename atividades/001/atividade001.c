@@ -9,7 +9,7 @@
 int main() {
     int n;
     long long int numero_lido;
-    char buffer[256]; 
+    char buffer[256];
 
     while (true) {
         printf("Digite um numero inteiro N > 0: ");
@@ -69,19 +69,28 @@ int main() {
     clock_t fim = clock();
     double tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
 
-    printf("\n----------------------------------------\n");
-    printf("O valor de N e: %d\n", n);
-    
-    printf("Os numeros primos encontrados sao:\n");
+    FILE *file = fopen("log_primos.txt", "w");
+    if (file == NULL) {
+        perror("Erro ao abrir o ficheiro");
+        free(primos);
+        return 1;
+    }
+
     int contagem_primos = 0;
     for (int p = 2; p <= n; p++) {
         if (primos[p]) {
-            printf("%d ", p);
+            fprintf(file, "%d ", p);
             contagem_primos++;
         }
     }
+
+    fclose(file);
+
+    printf("\n----------------------------------------\n");
+    printf("O valor de N e: %d\n", n);
     
-    printf("\n\n"); 
+    printf("\nOs numeros primos foram salvos no ficheiro 'log_primos.txt'.\n\n");
+    
     printf("A quantidade de numeros primos encontrados e: %d\n", contagem_primos);
     printf("Tempo de execucao do calculo: %f segundos\n", tempo_execucao);
     printf("----------------------------------------\n");
