@@ -28,7 +28,10 @@ int main() {
     LinkedList* lista = criar_lista();
     int numero_inicial;
     char buffer[4096];
-    if (fgets(buffer, sizeof(buffer), arquivo)) {
+
+    while (fgets(buffer, sizeof(buffer), arquivo)) {
+        int linha_terminou = (strchr(buffer, '\n') != NULL);
+        
         char* token = strtok(buffer, " \n\r");
         while (token != NULL) {
             if (atoi(token) != 0 || strcmp(token, "0") == 0) {
@@ -37,15 +40,24 @@ int main() {
             }
             token = strtok(NULL, " \n\r");
         }
+
+        if (linha_terminou) {
+            break;
+        }
     }
 
-    fgets(buffer, sizeof(buffer), arquivo);
+    int qtd_acoes_declarada = 0;
+    fscanf(arquivo, "%d", &qtd_acoes_declarada);
 
+    int contador_acoes_reais = 0;
     char acao;
     int valor, posicao;
     int c;
 
+    while ((c = fgetc(arquivo)) != '\n' && c != EOF);
+
     while (fscanf(arquivo, " %c", &acao) == 1) {
+        contador_acoes_reais++;
 
         if (acao == 'A') {
             fscanf(arquivo, "%d %d", &valor, &posicao);
@@ -56,10 +68,18 @@ int main() {
         } else if (acao == 'P') {
             imprimir_lista(lista);
         } else {
-            printf("Aviso: Acao desconhecida '%c' encontrada. Ignorando linha.\n", acao);
+            printf("Aviso: Acao desconhecida '%c' na linha %d (aproximadamente). Ignorando.\n", acao, contador_acoes_reais + 2);
         }
 
         while ((c = fgetc(arquivo)) != '\n' && c != EOF);
+    }
+
+    if (contador_acoes_reais != qtd_acoes_declarada) {
+        printf("\n--------------------------------------------------\n");
+        printf("AVISO DE INCONSISTENCIA NO ARQUIVO:\n");
+        printf("-> Acoes declaradas na linha 2: %d\n", qtd_acoes_declarada);
+        printf("-> Acoes realmente processadas: %d\n", contador_acoes_reais);
+        printf("--------------------------------------------------\n");
     }
 
     fclose(arquivo);
@@ -88,7 +108,6 @@ LinkedList* criar_lista() {
     nova_lista->head = NULL;
     return nova_lista;
 }
-
 
 void adicionar_no(LinkedList* lista, int valor, int posicao) {
     Node* novo_no = criar_no(valor);
