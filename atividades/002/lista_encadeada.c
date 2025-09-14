@@ -20,7 +20,6 @@ void libertar_lista(LinkedList* lista);
 
 int main() {
     FILE* arquivo = fopen("arq.txt", "r");
-
     if (arquivo == NULL) {
         printf("Erro: Nao foi possivel abrir o arquivo arq.txt\n");
         return 1;
@@ -28,25 +27,25 @@ int main() {
 
     LinkedList* lista = criar_lista();
     int numero_inicial;
-    char buffer[1024];
-
+    char buffer[4096];
     if (fgets(buffer, sizeof(buffer), arquivo)) {
-        char* token = strtok(buffer, " \n");
+        char* token = strtok(buffer, " \n\r");
         while (token != NULL) {
-            numero_inicial = atoi(token);
-            adicionar_no(lista, numero_inicial, -1);
-            token = strtok(NULL, " \n");
+            if (atoi(token) != 0 || strcmp(token, "0") == 0) {
+                numero_inicial = atoi(token);
+                adicionar_no(lista, numero_inicial, -1);
+            }
+            token = strtok(NULL, " \n\r");
         }
     }
 
-    int qtd_acoes;
-    fscanf(arquivo, "%d", &qtd_acoes);
+    fgets(buffer, sizeof(buffer), arquivo);
 
     char acao;
     int valor, posicao;
+    int c;
 
-    for (int i = 0; i < qtd_acoes; i++) {
-        fscanf(arquivo, " %c", &acao);
+    while (fscanf(arquivo, " %c", &acao) == 1) {
 
         if (acao == 'A') {
             fscanf(arquivo, "%d %d", &valor, &posicao);
@@ -56,7 +55,11 @@ int main() {
             remover_no_por_valor(lista, valor);
         } else if (acao == 'P') {
             imprimir_lista(lista);
+        } else {
+            printf("Aviso: Acao desconhecida '%c' encontrada. Ignorando linha.\n", acao);
         }
+
+        while ((c = fgetc(arquivo)) != '\n' && c != EOF);
     }
 
     fclose(arquivo);
@@ -68,7 +71,7 @@ int main() {
 Node* criar_no(int valor) {
     Node* novo_no = (Node*)malloc(sizeof(Node));
     if (novo_no == NULL) {
-        printf("Erro de alocacao de memoria!\n");
+        printf("Erro fatal: Falha na alocacao de memoria para um novo no.\n");
         exit(1);
     }
     novo_no->valor = valor;
@@ -79,25 +82,22 @@ Node* criar_no(int valor) {
 LinkedList* criar_lista() {
     LinkedList* nova_lista = (LinkedList*)malloc(sizeof(LinkedList));
     if (nova_lista == NULL) {
-        printf("Erro de alocacao de memoria!\n");
+        printf("Erro fatal: Falha na alocacao de memoria para a lista.\n");
         exit(1);
     }
     nova_lista->head = NULL;
     return nova_lista;
 }
 
+
 void adicionar_no(LinkedList* lista, int valor, int posicao) {
     Node* novo_no = criar_no(valor);
-
     if (posicao == 0 || lista->head == NULL) {
         novo_no->proximo = lista->head;
         lista->head = novo_no;
         return;
     }
-
     Node* atual = lista->head;
-    int contador = 0;
-
     if (posicao == -1) {
         while (atual->proximo != NULL) {
             atual = atual->proximo;
@@ -105,35 +105,29 @@ void adicionar_no(LinkedList* lista, int valor, int posicao) {
         atual->proximo = novo_no;
         return;
     }
-    
+    int contador = 0;
     while (contador < posicao - 1 && atual->proximo != NULL) {
         atual = atual->proximo;
         contador++;
     }
-
     novo_no->proximo = atual->proximo;
     atual->proximo = novo_no;
 }
 
 void remover_no_por_valor(LinkedList* lista, int valor) {
     if (lista->head == NULL) return;
-
     Node* atual = lista->head;
     Node* anterior = NULL;
-
     if (atual != NULL && atual->valor == valor) {
         lista->head = atual->proximo;
         free(atual);
         return;
     }
-
     while (atual != NULL && atual->valor != valor) {
         anterior = atual;
         atual = atual->proximo;
     }
-
     if (atual == NULL) return;
-
     anterior->proximo = atual->proximo;
     free(atual);
 }
@@ -141,25 +135,22 @@ void remover_no_por_valor(LinkedList* lista, int valor) {
 void imprimir_lista(LinkedList* lista) {
     Node* atual = lista->head;
     if (atual == NULL) {
-        printf("Lista vazia.\n");
         return;
     }
-
     while (atual != NULL) {
         printf("%d ", atual->valor);
         atual = atual->proximo;
     }
     printf("\n");
 }
+
 void libertar_lista(LinkedList* lista) {
     Node* atual = lista->head;
     Node* proximo_no;
-
     while (atual != NULL) {
         proximo_no = atual->proximo;
         free(atual);
         atual = proximo_no;
     }
-
     free(lista);
 }
