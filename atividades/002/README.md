@@ -4,7 +4,7 @@
 
 Este projeto é uma implementação de uma **Lista Encadeada** (Linked List) na linguagem C.
 
-O programa lê suas instruções a partir de um arquivo de texto chamado `arq.txt`, que define o estado inicial da lista e uma sequência de operações a serem executadas.
+O programa lê suas instruções a partir de um arquivo de texto chamado como queira `(qualquer_nome).txt`, que define o estado inicial da lista e uma sequência de operações a serem executadas.
 
 As operações suportadas são:
 * **Adicionar (`A`)**: Insere um novo número numa posição específica.
@@ -29,7 +29,7 @@ funções de manipulação e a função `main`.
     * `imprimir_lista`: Exibe a lista.
     * `libertar_lista`: Libera toda a memória alocada para evitar *memory leaks*.
 * **Função `main` (Lógica Principal)**:
-    1.  Abre `arq.txt`.
+    1.  Abre `.txt`.
     2.  Lê a primeira linha para popular a lista inicial.
     3.  Entra em um loop `while` que lê o arquivo ação por ação **até o final do arquivo (EOF)**.
     4.  Após cada ação, **limpa o restante da linha**, garantindo que a próxima leitura não seja afetada por dados extras.
@@ -57,8 +57,8 @@ Siga estes passos para compilar e executar o projeto.
     gcc main.c -o ./output/programa
     ```
 
-### Passo 3: Criar o Ficheiro de Entrada (`arq.txt`)
-* **Importante**: Crie o arquivo `arq.txt` **dentro da pasta `output`**, ao lado do executável `programa`.
+### Passo 3: Criar o Ficheiro de Entrada (`.txt`)
+* **Importante**: Crie o arquivo `.txt` **dentro da pasta `output`**, ao lado do executável `programa`.
 
 ### Passo 4: Executar o Programa
 * No terminal, navegue para dentro da pasta `output`:
@@ -72,4 +72,4 @@ Siga estes passos para compilar e executar o projeto.
     (No Windows, o comando pode ser `programa.exe`)
 
 ### Passo 5: Analisar a Saída
-* O programa irá executar todas as ações do `arq.txt`, imprimindo a lista no terminal sempre que encontrar o comando `P`.
+* O programa irá executar todas as ações do `.txt`, imprimindo a lista no terminal sempre que encontrar o comando `P`.
