@@ -1,0 +1,9 @@
+Algoritmo,Tipo,Metrica,Valor
+Bubble Sort,Média,Tempo,11.53
+Bubble Sort,Mediana,Tempo,11.78
+Bubble Sort,Média,Memória,5632.0
+Bubble Sort,Mediana,Memória,5632.0
+Rápido (sort()),Média,Tempo,0.39
+Rápido (sort()),Mediana,Tempo,0.34
+Rápido (sort()),Média,Memória,4505.6
+Rápido (sort()),Mediana,Memória,4505.6

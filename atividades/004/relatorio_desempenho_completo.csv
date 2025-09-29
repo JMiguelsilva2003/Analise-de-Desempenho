@@ -1,0 +1,27 @@
+Relatório Completo de Análise de Desempenho
+
+1. Dados Brutos (10 Execuções)
+Algoritmo,Métrica,Run 1,Run 2,Run 3,Run 4,Run 5,Run 6,Run 7,Run 8,Run 9,Run 10
+R (Rápido),Tempo (ms),0.32,0.36,0.31,0.32,0.48,0.45,0.6,0.32,0.37,0.32
+R (Rápido),Memória (KB),4505.6,4505.6,4505.6,4505.6,4505.6,4505.6,4505.6,4505.6,4505.6,4505.6
+R (Bubble),Tempo (ms),11.14,11.36,11.09,11.68,12.16,11.87,11.13,11.96,11.94,11.96
+R (Bubble),Memória (KB),5632.0,5632.0,5632.0,5632.0,5632.0,5632.0,5632.0,5632.0,5632.0,5632.0
+
+2. Tabela de Resumo (Média e Mediana)
+Algoritmo,Métrica,Média,Mediana
+R (Rápido),Tempo (ms),0.39,0.34
+R (Rápido),Memória (KB),4505.6,4505.6
+R (Bubble),Tempo (ms),11.53,11.78
+R (Bubble),Memória (KB),5632.0,5632.0
+
+3. Informações do Ambiente de Teste
+Componente,Especificação
+Nome do Host,MIGUEL
+Fabricante,Acer
+Modelo,Nitro ANV15-51
+Processador,Intel64 Family 6 Model 186 Stepping 2 GenuineIntel ~2100 Mhz
+GPU,NVIDIA GeForce RTX 3050
+Memória RAM,24 GB @ 5200 MT/s
+Armazenamento,2 TB SSD + 500 GB SSD
+Sistema Operacional,Microsoft Windows 11 Pro
+Versão R,4.5.1
