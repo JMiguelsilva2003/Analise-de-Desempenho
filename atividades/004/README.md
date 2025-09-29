@@ -49,4 +49,4 @@ Para testar os programas, certifique-se de que está no diretório correto e que
 
 Os testes de performance foram realizados executando cada implementação 10 vezes com um ficheiro de entrada de grande volume. [cite_start]Os resultados, incluindo os tempos de execução (ms) e o uso de memória (KB), juntamente com os cálculos de média e mediana, foram compilados numa planilha. [cite: 16]
 
-**[>> Aceda aqui à Planilha com os Resultados <<](http://)**
+**[>> Aceda aqui à Planilha com os Resultados <<](https://docs.google.com/spreadsheets/d/1fkrSHEmTAsYVdkSWE7Ih3QBBK8N4mZL6KxlJ-04RsDU/edit?usp=sharing)**
