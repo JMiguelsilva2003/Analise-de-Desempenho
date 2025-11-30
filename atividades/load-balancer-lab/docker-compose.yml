@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app1:
+    build: ./app
+    hostname: container-app-01
+    expose:
+      - "5000"
+
+  app2:
+    build: ./app
+    hostname: container-app-02
+    expose:
+      - "5000"
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - app1
+      - app2
